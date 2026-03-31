@@ -292,7 +292,7 @@ MIT License — free for commercial and personal use.
 
 ## 👨‍💻 Author
 
-Built with ❤️ by **Harish**
+Built by team **UNCUT GEMS**
 
 ---
 
