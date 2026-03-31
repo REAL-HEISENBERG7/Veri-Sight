@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-deep:    #060b14;
+  --bg-mid:     #0d1623;
+  --bg-card:    rgba(13, 22, 35, 0.7);
+  --border:     rgba(0, 255, 136, 0.15);
+  --border-hot: rgba(0, 255, 136, 0.45);
+  --neon:       #00ff88;
+  --neon-dim:   rgba(0, 255, 136, 0.12);
+  --cyan:       #00e5ff;
+  --red:        #ff3b30;
+  --orange:     #ff9500;
+  --text:       #e8f0fe;
+  --text-muted: #6b7fa3;
+  --font-mono:  'Share Tech Mono', monospace;
+  --font-head:  'Syne', sans-serif;
+  --font-body:  'DM Sans', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ──────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: rgba(0,255,136,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,255,136,0.4); }
+
+/* ── Glassmorphism card ─────────────────────── */
+.glass {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.glass-hot {
+  border-color: var(--border-hot);
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.08);
+}
+
+/* ── Neon glow text ─────────────────────────── */
+.neon-text {
+  color: var(--neon);
+  text-shadow: 0 0 20px rgba(0,255,136,0.6), 0 0 40px rgba(0,255,136,0.2);
+}
+
+/* ── Scanline overlay ───────────────────────── */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.06) 2px,
+    rgba(0,0,0,0.06) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── Grid background ────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Animations ─────────────────────────────── */
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,136,0.3); }
+  50%       { box-shadow: 0 0 0 8px rgba(0,255,136,0.0); }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.6; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.8; }
+  97%       { opacity: 1; }
+}
+
+@keyframes data-stream {
+  0%   { transform: translateY(0); opacity: 0.6; }
+  100% { transform: translateY(-100%); opacity: 0; }
+}
+
+.animate-pulse-border { animation: pulse-border 2s infinite; }
+.animate-flicker       { animation: flicker 5s infinite; }
+
+/* ── Progress bar ───────────────────────────── */
+.trust-bar {
+  height: 10px;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+  position: relative;
+}
+.trust-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+.trust-bar-fill::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 20px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+}
+
+/* ── Breakdown row ──────────────────────────── */
+.breakdown-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.breakdown-row:hover { background: rgba(255,255,255,0.03); }
